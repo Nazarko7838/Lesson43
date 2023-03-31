@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, Date, Time, create_engine, Forei
 from sqlalchemy.orm import declarative_base, sessionmaker
 from flask_login import UserMixin
 
-engine = create_engine("sqlite:///app.db?check_same_thread=False", echo=True)
+engine = create_engine("sqlite:///app.db?check_same_thread=False", echo=False)
 Session = sessionmaker(bind=engine)
 session = Session()
 Base = declarative_base()
@@ -13,14 +13,16 @@ class User(Base, UserMixin):
 
     id = Column("id", Integer, primary_key=True)
     nickname = Column("nickname", String)
-    email = Column("email", String)
     password = Column("password", String)
+    email = Column("email", String)
+
 
     def __init__(self, nickname, email, password):
         super().__init__()
         self.nickname = nickname
-        self.email = email
         self.password = password
+        self.email = email
+
 
 
 
